@@ -1,0 +1,8 @@
+{
+  "include": [ "src/**/*" ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "strict": true,
+    "module": "node16"
+  }
+}
