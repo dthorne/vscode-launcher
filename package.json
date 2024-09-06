@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
   "author": "Dewey McNeill",
+  "keywords": [
+    "vscode",
+    "launch",
+    "launch.json"
+  ],
   "license": "ISC",
+  "git_repository": "https://github.com/dthorne/vscode-launcher",
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
