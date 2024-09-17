@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-
-import figlet from 'figlet';
+import * as figlet from 'figlet';
 import { Command } from 'commander';
-import {launch, readJsonFile} from './util/index.js';
+import { readJsonFile, launch } from './util/';
 
 
 console.log(figlet.textSync('VSCode Launcher'));

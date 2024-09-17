@@ -1,15 +1,15 @@
 {
   "name": "vscode-launcher",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Launches vscode launch.json configurations from the command line",
-  "main": "index.js",
+  "main": "build/main-bundle.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/index.js",
+    "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "vscode-launcher": "dist/index.js"
+    "vscode-launcher": "build/main-bundle.js"
   },
   "type": "module",
   "author": "Dewey McNeill",
@@ -29,6 +29,9 @@
   "devDependencies": {
     "@types/figlet": "^1.5.8",
     "@types/node": "^22.5.4",
-    "typescript": "^5.5.4"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }

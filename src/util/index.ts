@@ -12,9 +12,7 @@ export function expandVariables(value: any): any {
             .replace(/\$\{env\.(\w+)\}/g, (match, varName) => process.env[varName] || '') as any
     }
     if (typeof value === 'object' && value !== null) {
-        for (const key of (Array.isArray(value) ? value.keys() : Object.keys(value))) {
-            value[key] = expandVariables(value[key])
-        }
+      Array.isArray(value) ? value.map(expandVariables) : Object.keys(value).forEach(key => value[key] = expandVariables(value[key]))
     }
     return value
 }
