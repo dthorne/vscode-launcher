@@ -1,35 +1,48 @@
-#!/usr/bin/env node
-import * as figlet from 'figlet';
-import { Command } from 'commander';
-import { readJsonFile, launch } from './util/';
+#!/usr/bin/env npx ts-node --esm
 
+import figlet from 'figlet';
+import { Command, Flags } from '@oclif/core';
+import { readJsonFile, launch } from './util/index.js';
 
 console.log(figlet.textSync('VSCode Launcher'));
 
-const program = new Command();
-program.version('0.0.1')
-  .option(
-    '--cwd [cwd]',
-    'The current working directory to use',
-    process.cwd()
-  )
-  .option(
-    '-c, --configuration-name <configuration>',
-    'The name of the configuration to launch'
-  )
-  .option('-d, --debug', 'output extra debugging')
-  .option(
-    '-l, --launchFile [launch-file]',
-    'The path to the launch.json file',
-    '.vscode/launch.json'
-  )
-  .description('Run a launch configuration from .vscode/launch.json')
-  .parse(process.argv);
+export default class Launch extends Command {
+  static description = 'Run a launch configuration from .vscode/launch.json';
 
-const options = program.opts();
+  static aliases = [];
 
-options.debug && console.debug(`Launching with options: ${JSON.stringify(options)}`);
+  static flags = {
+    cwd: Flags.string({
+      description: 'The current working directory to use',
+      default: process.cwd(),
+    }),
+    'configuration-name': Flags.string({
+      char: 'c',
+      description: 'The name of the configuration to launch',
+      required: true,
+    }),
+    debug: Flags.boolean({
+      char: 'd',
+      description: 'output extra debugging',
+      default: false,
+    }),
+    launchFile: Flags.string({
+      char: 'l',
+      description: 'The path to the launch.json file',
+      default: '.vscode/launch.json',
+    }),
+  };
 
-const launchFile = readJsonFile(options.launchFile);
+  async run() {
+    const { flags } = await this.parse(Launch);
 
-launch(launchFile, options.configurationName);
+    if (flags.debug) {
+      this.log(`Launching with options: ${JSON.stringify(flags)}`);
+    }
+
+    const launchFile = readJsonFile(flags.launchFile);
+
+    launch(launchFile, flags['configuration-name']);
+  }
+}
+

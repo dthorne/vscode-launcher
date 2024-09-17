@@ -1,7 +1,7 @@
 import {readFileSync} from "fs";
 import {LaunchFile} from "../models/index.js";
 import chalk from "chalk";
-import {exec, execSync, spawn} from "child_process";
+import {execSync} from "child_process";
 import stripJsonComments from "strip-json-comments";
 
 export function expandVariables(value: any): any {
@@ -35,7 +35,7 @@ const COLORS = [
 
 export function launch(launchFile: LaunchFile, configurationName: string, cwd?: string) {
   const expandedLaunchFile = expandVariables(launchFile) as LaunchFile;
-  const nameWidth = expandedLaunchFile.configurations.reduce((max, config) => Math.max(max, config.name.length), 0) + 1;
+  //const nameWidth = expandedLaunchFile.configurations.reduce((max, config) => Math.max(max, config.name.length), 0) + 1;
 
   const config = expandedLaunchFile.configurations.find(config => config.name === configurationName)
   if (!config) {

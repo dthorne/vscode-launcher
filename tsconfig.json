@@ -1,8 +1,7 @@
 {
-  "include": [ "src/**/*" ],
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "outDir": "dist",
-    "strict": true,
-    "module": "commonjs"
+    "module": "NodeNext",
+    "outDir": "./dist"
   }
 }
