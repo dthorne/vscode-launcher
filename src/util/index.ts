@@ -17,11 +17,16 @@ export function expandVariables(value: any): any {
     return value
 }
 
-export function readJsonFile<T>(path: string): LaunchFile {
-  const launchFile = readFileSync(path, 'utf8');
-  const strippedLaunchFile = stripJsonComments(launchFile);
-  const launchConfigurations = JSON.parse(strippedLaunchFile);
-  return launchConfigurations as LaunchFile;
+export function readJsonFile(path: string): LaunchFile {
+  try {
+    const launchFile = readFileSync(path, 'utf8');
+    const strippedLaunchFile = stripJsonComments(launchFile);
+    const launchConfigurations = JSON.parse(strippedLaunchFile);
+    return launchConfigurations as LaunchFile;
+  } catch (e) {
+    console.error(chalk.red(`Could not read file ${path}`));
+    process.exit(1);
+  }
 }
 
 const COLORS = [
