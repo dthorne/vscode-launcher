@@ -1,7 +1,5 @@
 # VSCode Launcher
 
-![VSCode Launcher](https://img.shields.io/badge/version-0.0.1-blue)
-
 This project is a CLI tool for running a launch configuration from `.vscode/launch.json`. It uses [Figlet](https://www.npmjs.com/package/figlet) to print a fun banner, [Commander](https://www.npmjs.com/package/commander) for argument parsing, and custom utilities for launching and reading configuration files.
 
 ## Features
@@ -9,22 +7,11 @@ This project is a CLI tool for running a launch configuration from `.vscode/laun
 - Specify the working directory
 - Optional debug mode for extra logging
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/vscode-launcher.git
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
 ## Usage
 
 ### Command Syntax
 ```bash
-node index.js [options]
+   npx vscode-launcher -c "{The name of a launch command in your .vscode/launch.json}"
 ```
 
 ### Options
@@ -39,7 +26,7 @@ node index.js [options]
 
 To run a specific configuration:
 ```bash
-node index.js --configuration-name myConfig
+npx vscode-launcher --configuration-name myConfig
 ```
 
 To run with a custom launch file:

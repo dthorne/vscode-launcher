@@ -1,6 +1,6 @@
 {
   "name": "vscode-launcher",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Launches vscode launch.json configurations from the command line",
   "main": "build/main-bundle.js",
   "scripts": {
