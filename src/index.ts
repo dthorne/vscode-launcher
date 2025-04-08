@@ -40,7 +40,7 @@ export default class Launch extends Command {
       this.log(`Launching with options: ${JSON.stringify(flags)}`);
     }
 
-    const launchFile = readJsonFile(flags.launchFile);
+    const launchFile = readJsonFile(flags.launchFile, flags.debug);
 
     launch(launchFile, flags['configuration-name']);
   }

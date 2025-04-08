@@ -1,8 +1,8 @@
-import {readFileSync} from "fs";
+import {readFileSync, writeFileSync} from "fs";
 import {LaunchFile} from "../models/index.js";
 import chalk from "chalk";
 import {execSync} from "child_process";
-import stripJsonComments from "strip-json-comments";
+import JSON5 from "json5";
 
 export function expandVariables(value: any): any {
     if (typeof value === 'string') {
@@ -17,13 +17,13 @@ export function expandVariables(value: any): any {
     return value
 }
 
-export function readJsonFile(path: string): LaunchFile {
+export function readJsonFile(path: string, debug: boolean = false): LaunchFile {
   try {
     const launchFile = readFileSync(path, 'utf8');
-    const strippedLaunchFile = stripJsonComments(launchFile);
-    const launchConfigurations = JSON.parse(strippedLaunchFile);
+    const launchConfigurations = JSON5.parse(launchFile); // Validate JSON5
     return launchConfigurations as LaunchFile;
   } catch (e) {
+    debug && console.error(e);
     console.error(chalk.red(`Could not read file ${path}`));
     process.exit(1);
   }
