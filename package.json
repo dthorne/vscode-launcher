@@ -1,6 +1,6 @@
 {
   "name": "vscode-launcher",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Launches vscode launch.json configurations from the command line",
   "main": "build/main-bundle.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "vscode-launcher": "./bin/run.js"
+    "vscode-launcher": "bin/run.js"
   },
   "type": "module",
   "author": "Dewey McNeill",
