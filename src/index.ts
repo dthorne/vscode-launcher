@@ -4,8 +4,6 @@ import figlet from 'figlet';
 import { Command, Flags } from '@oclif/core';
 import { readJsonFile, launch } from './util/index.js';
 
-console.log(figlet.textSync('VSCode Launcher'));
-
 export default class Launch extends Command {
   static description = 'Run a launch configuration from .vscode/launch.json';
 
@@ -31,10 +29,18 @@ export default class Launch extends Command {
       description: 'The path to the launch.json file',
       default: '.vscode/launch.json',
     }),
+    'show-command': Flags.boolean({
+      description: 'Display the command that would be executed',
+      default: false,
+    }),
   };
 
   async run() {
     const { flags } = await this.parse(Launch);
+
+    if (!flags['show-command']) {
+      this.log(figlet.textSync('VSCode Launcher'));
+    }
 
     if (flags.debug) {
       this.log(`Launching with options: ${JSON.stringify(flags)}`);
@@ -42,7 +48,7 @@ export default class Launch extends Command {
 
     const launchFile = readJsonFile(flags.launchFile, flags.debug);
 
-    launch(launchFile, flags['configuration-name']);
+    launch(launchFile, flags['configuration-name'], flags.cwd, flags['show-command']);
   }
 }
 

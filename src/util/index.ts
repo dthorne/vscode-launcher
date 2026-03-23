@@ -38,13 +38,23 @@ const COLORS = [
   chalk.red
 ]
 
-export function launch(launchFile: LaunchFile, configurationName: string, cwd?: string) {
+export function launch(launchFile: LaunchFile, configurationName: string, cwd?: string, showCommand: boolean = false) {
   const expandedLaunchFile = expandVariables(launchFile) as LaunchFile;
-  //const nameWidth = expandedLaunchFile.configurations.reduce((max, config) => Math.max(max, config.name.length), 0) + 1;
 
   const config = expandedLaunchFile.configurations.find(config => config.name === configurationName)
   if (!config) {
     console.error(chalk.red(`Configuration ${configurationName} not found`));
+    return;
+  }
+
+  // TODO: Needs OS specific handling
+  const runtimeExecutable = config.osx?.runtimeExecutable || '';
+  const program = config.cwd || '.';
+
+  const command = `${runtimeExecutable} ${config.runtimeArgs?.join(' ') || ''} ${program} ${config.args?.join(' ') || ''}`.trim().replace(/\s+/g, ' ');
+
+  if (showCommand) {
+    console.log(command);
     return;
   }
 
@@ -54,14 +64,7 @@ export function launch(launchFile: LaunchFile, configurationName: string, cwd?: 
   const color = COLORS[Math.floor(Math.random() * COLORS.length)]
   console.log(color(`Launching ${config.name}`));
 
-  // TODO: Needs OS specific handling
-  const runtimeExecutable = config.osx?.runtimeExecutable || '';
-  const program = config.cwd || '.';
-
-  execSync(
-    `${runtimeExecutable} ${config.runtimeArgs?.join(' ') || ''} ${program} ${config.args?.join(' ') || ''}`,
-    {
-      stdio: 'inherit',
-    }
-  );
+  execSync(command, {
+    stdio: 'inherit',
+  });
 }
